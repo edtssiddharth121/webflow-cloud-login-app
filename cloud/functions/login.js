@@ -1,4 +1,3 @@
-
 const users = await cloud.data.get("users") || [];
 
 export default async function handler(req) {
@@ -7,9 +6,9 @@ export default async function handler(req) {
 
   const user = users.find(u => u.email === email && u.password === password);
 
-  if (user) {
-    return new Response("Login successful", { status: 200 });
-  } else {
+  if (!user) {
     return new Response("Invalid credentials", { status: 401 });
   }
+
+  return new Response("Login successful", { status: 200 });
 }
